@@ -1,0 +1,340 @@
+<!doctype html>
+<title>FPS AI — Capability Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0f14;
+    --panel:#131a22;
+    --panel-2:#1a222c;
+    --paper:#f3efe6;
+    --ember:#e2703a;
+    --ember-dim:#c2410c;
+    --signal:#3ecf8e;
+    --text:#eef1f4;
+    --text-soft:#9aa7b2;
+    --line:#232c36;
+    --serif:"Fraunces",Georgia,"Iowan Old Style",serif;
+    --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--ink);}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    padding:0 20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--serif);text-wrap:balance;margin:0;}
+  .kicker{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ember);
+  }
+  .mono{font-family:var(--mono);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:40px 0 28px;border-bottom:1px solid var(--line);}
+  .hero .kicker{margin-bottom:14px;}
+  .hero h1{font-size:clamp(32px,8vw,48px);font-weight:700;line-height:1.05;color:#fff;}
+  .hero .role{
+    font-size:16px;color:var(--text-soft);margin-top:10px;font-weight:500;
+  }
+  .hero .role strong{color:var(--text);font-weight:600;}
+  .contact-row{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+  }
+  .btn{
+    font-family:var(--sans);font-size:13.5px;font-weight:600;
+    padding:10px 16px;border-radius:8px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+  }
+  .btn-primary{background:var(--ember);color:#191008;border-color:var(--ember);}
+  .btn-ghost{color:var(--text);background:var(--panel);}
+  .btn-ghost:hover{background:var(--panel-2);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:34px 0;border-bottom:1px solid var(--line);}
+  section h2{font-size:22px;color:#fff;margin-bottom:4px;}
+  .lede{color:var(--text-soft);font-size:14.5px;line-height:1.6;max-width:60ch;margin:10px 0 20px;}
+
+  /* ---------- Problem / What we do ---------- */
+  .prose p{font-size:15px;line-height:1.75;color:#dbe1e6;max-width:64ch;margin:0 0 14px;}
+  .prose strong{color:#fff;}
+
+  /* ---------- Business map ---------- */
+  .map{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);}
+  .map-row{
+    display:grid;grid-template-columns:190px 1fr;gap:16px;
+    padding:13px 16px;border-bottom:1px solid var(--line);align-items:start;
+  }
+  .map-row:last-child{border-bottom:none;}
+  .map-area{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--text);padding-top:2px;
+  }
+  .map-states{display:grid;gap:5px;}
+  .by-hand,.built{font-size:13.2px;line-height:1.5;display:flex;gap:8px;}
+  .by-hand{color:#a99a89;}
+  .built{color:var(--signal);}
+  .by-hand::before{content:"CF";color:var(--ember-dim);font-size:9px;line-height:1.9;}
+  .built::before{content:"CF";color:var(--signal);font-size:9px;line-height:1.9;}
+  @media(max-width:600px){
+    .map-row{grid-template-columns:1fr;gap:8px;}
+    .map-area{color:var(--text-soft);}
+  }
+  .map-key{
+    display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 0;
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-soft);
+  }
+  .map-key span{display:flex;gap:7px;align-items:center;}
+  .k-hand::before{content:"CF";color:var(--ember-dim);}
+  .k-built::before{content:"CF";color:var(--signal);}
+
+  /* ---------- Engagement cards ---------- */
+  .cards{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-top:18px;}
+  @media(max-width:600px){.cards{grid-template-columns:1fr;}}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:18px;
+  }
+  .card .meta{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;}
+  .card .meta .loc{font-family:var(--mono);font-size:10.5px;color:var(--text-soft);text-transform:uppercase;letter-spacing:.05em;}
+  .card .status{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--signal);}
+  .card h3{font-family:var(--serif);font-size:19px;font-weight:600;color:#fff;margin-bottom:8px;}
+  .card p{font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0;}
+
+  /* ---------- Systems built ---------- */
+  .systems{display:grid;gap:14px;margin-top:18px;}
+  .system{
+    border:1px solid var(--line);border-radius:10px;padding:18px;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  }
+  .system .kicker{color:var(--signal);}
+  .system h3{font-family:var(--sans);font-size:16px;font-weight:600;color:#fff;margin:8px 0 6px;}
+  .system p{font-size:13.8px;color:var(--text-soft);line-height:1.65;margin:0;}
+
+  /* ---------- Triptych ---------- */
+  .triptych{display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin-top:18px;}
+  @media(max-width:640px){.triptych{grid-template-columns:1fr;}}
+  .triptych div p{font-size:13.5px;color:#dbe1e6;line-height:1.65;margin:0;}
+  .triptych div{border-left:2px solid var(--ember);padding-left:14px;}
+
+  /* ---------- Engagement shapes ---------- */
+  .shapes{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin-top:18px;}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr;}}
+  .shape{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--panel);}
+  .shape.pref{border-color:var(--ember);background:var(--panel-2);}
+  .shape .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);}
+  .shape.pref .tag{color:var(--ember);}
+  .shape h3{font-family:var(--sans);font-size:14.5px;font-weight:600;color:#fff;margin:8px 0 6px;}
+  .shape p{font-size:12.8px;color:var(--text-soft);line-height:1.6;margin:0;}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    border-bottom:none;
+    background:radial-gradient(120% 140% at 10% 0%,#2a1810 0%,var(--ink) 55%);
+    padding:44px 0 60px;
+  }
+  .cta h2{font-size:26px;}
+  .cta .lede{max-width:52ch;}
+  .cta .contact-row{margin-top:24px;}
+
+  footer{padding:22px 0 40px;color:var(--text-soft);font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-align:center;}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">FPS AI &middot; AI Partner &middot; Capability Profile</div>
+    <h1>Papaniass Folaranmi</h1>
+    <p class="role">We build <strong>AI software</strong> for the parts of a business still being done by hand &mdash; built around how your business actually works, not the other way round.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="https://wa.me/2348137982733?text=Hi%2C%20I%20saw%20your%20FPS%20AI%20profile%20and%20want%20to%20talk" target="_blank" rel="noopener">WhatsApp me</a>
+      <a class="btn btn-ghost" href="mailto:pfniass@gmail.com">pfniass@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+2348137982733">+234 813 798 2733</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="kicker">What we do</div>
+    <h2>Most businesses still run on processes done by hand</h2>
+    <div class="prose" style="margin-top:16px;">
+      <p>Someone types the same details into three places. Someone remembers to follow up, or doesn't. Someone spends an afternoon pulling numbers together to answer a question the business should already know the answer to.</p>
+      <p><strong>FPS AI builds AI software that takes those processes over</strong> &mdash; and we build it around your business, not your business around it. What used to take three days to a week ends up taking hours, because the software does it the moment it needs doing.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Where this applies</div>
+    <h2>The whole business, not one corner</h2>
+    <p class="lede">Software doesn't only belong in sales. Every one of these is a place we build.</p>
+    <div class="map">
+      <div class="map-row">
+        <div class="map-area">Finding customers</div>
+        <div class="map-states">
+          <div class="by-hand">Word of mouth, or a website nobody can find</div>
+          <div class="built">A presence that gets found, and a door that actually opens</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Answering enquiries</div>
+        <div class="map-states">
+          <div class="by-hand">Whoever is free, whenever they're free</div>
+          <div class="built">Answers, qualifies and books at any hour</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Quotes, orders, invoices</div>
+        <div class="map-states">
+          <div class="by-hand">Typed out one at a time</div>
+          <div class="built">Generated from what's already on file</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Running the work</div>
+        <div class="map-states">
+          <div class="by-hand">Tracked in WhatsApp, a notebook, someone's head</div>
+          <div class="built">One place, with nothing falling through</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Getting paid</div>
+        <div class="map-states">
+          <div class="by-hand">Chasing people, uncomfortably, by hand</div>
+          <div class="built">Chased automatically, on schedule</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Repeat business</div>
+        <div class="map-states">
+          <div class="by-hand">Hoping customers come back</div>
+          <div class="built">Systematic follow-up, reviews, reactivation</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Content and visuals</div>
+        <div class="map-states">
+          <div class="by-hand">A shoot, a studio, a week</div>
+          <div class="built">Campaign-quality imagery in days, no shoot</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-area">Knowing how you're doing</div>
+        <div class="map-states">
+          <div class="by-hand">Ask three people, get three answers</div>
+          <div class="built">A report that writes itself</div>
+        </div>
+      </div>
+    </div>
+    <p class="map-key"><span class="k-hand">still done by hand</span><span class="k-built">what we build</span></p>
+  </section>
+
+  <section>
+    <div class="kicker">How we build it</div>
+    <h2>Tailored to your business, not a tool you rent</h2>
+    <div class="prose" style="margin-top:16px;">
+      <p>Off-the-shelf tools make you change how you work to suit the tool. We do the opposite: the system gets built around how your business actually runs, in your language, for your workflow.</p>
+      <p>That used to mean a development team and months of work. <strong>AI is what makes building custom affordable now</strong> &mdash; it's the how, not the product. What you get is software, and software you can watch run.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Selected engagements &mdash; as AI partner</div>
+    <h2>Where this has actually run</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="meta"><span class="loc">Dubai &middot; Fragrance</span><span class="status">Ongoing</span></div>
+        <h3>The Street Scent</h3>
+        <p>Full campaign imagery without physical shoots &mdash; a brand audit, a Ramadan campaign, the "Coffee in Paris" fragrance campaigns, and the "Between Sets" editorial series.</p>
+      </div>
+      <div class="card">
+        <div class="meta"><span class="loc">Nigeria &middot; Retail</span><span class="status">Delivered</span></div>
+        <h3>Zeezlah Supermarket</h3>
+        <p>Invisible to listed on Google Maps &mdash; the store now gets real customer enquiries through it, paired with a link-in-bio site built to keep the reviews coming.</p>
+      </div>
+      <div class="card">
+        <div class="meta"><span class="loc">Nigeria &middot; Education</span><span class="status">Active</span></div>
+        <h3>Jupiter AI Academy</h3>
+        <p>Teaching people to use and build with AI, online through a private community and in person through a workshop &mdash; the same plain-language approach behind this page.</p>
+      </div>
+      <div class="card">
+        <div class="meta"><span class="loc">Internal &middot; The agency</span><span class="status">Running</span></div>
+        <h3>FPS AI itself</h3>
+        <p>The engine our own pipeline runs on: finds businesses across a city, checks which are worth reaching, audits their site, writes the first message &mdash; work of a small team, run by one person.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Built to solve our own problems</div>
+    <h2>We don't just configure other people's tools</h2>
+    <div class="systems">
+      <div class="system">
+        <div class="kicker">Software &middot; running</div>
+        <h3>FORGE</h3>
+        <p>A visual pipeline builder for AI generation work &mdash; chain image generation, upscaling and text steps into one repeatable flow instead of touching each tool by hand. Built to solve our own delivery bottleneck on creative work; already producing finished output.</p>
+      </div>
+      <div class="system">
+        <div class="kicker">Assistant &middot; running</div>
+        <h3>Zain</h3>
+        <p>The assistant that runs FPS AI's own operations &mdash; research, outreach, client documents, the pipeline itself. If it can hold together the backend of an agency, it can hold together yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Why this isn't magic</div>
+    <h2>No robot, no black box</h2>
+    <div class="triptych">
+      <div><p>There's no robot making decisions on the fly. It's instructions written once, followed exactly, every single time.</p></div>
+      <div><p>You keep your people. They stop spending their day on the parts of the job that never needed a person.</p></div>
+      <div><p>Every system we build, you can watch run. Nothing is a black box you have to take on trust.</p></div>
+    </div>
+    <p class="lede" style="margin-top:20px;margin-bottom:0;">We don't have measured client figures to quote yet &mdash; FPS AI is early, and we won't put a number on this page we can't stand behind.</p>
+  </section>
+
+  <section style="border-bottom:none;">
+    <div class="kicker">How we work</div>
+    <h2>Three ways in</h2>
+    <div class="shapes">
+      <div class="shape">
+        <div class="tag">One-off</div>
+        <h3>Single build</h3>
+        <p>A specific system, built and handed over.</p>
+      </div>
+      <div class="shape pref">
+        <div class="tag">Preferred</div>
+        <h3>Ongoing AI partner</h3>
+        <p>We stay on as your systems change &mdash; the longer we run it, the more we find to improve.</p>
+      </div>
+      <div class="shape">
+        <div class="tag">Hybrid</div>
+        <h3>Build, then care</h3>
+        <p>We build it, then stay on to keep it sharp.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="kicker">Start here</div>
+    <h2>A free look at your business, no commitment</h2>
+    <p class="lede">Which of your processes are still being done by hand, and what each one is costing you every month. If there's a fit, we go from there.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="https://wa.me/2348137982733?text=Hi%2C%20I%20saw%20your%20FPS%20AI%20profile%20and%20want%20to%20talk" target="_blank" rel="noopener">Message on WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:pfniass@gmail.com">Email instead</a>
+    </div>
+  </section>
+
+  <footer>FPS AI &middot; AI Partner &middot; Papaniass Folaranmi &middot; +234 813 798 2733</footer>
+
+</div>
