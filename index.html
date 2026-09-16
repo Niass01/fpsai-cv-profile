@@ -1,340 +1,510 @@
-<!doctype html>
-<title>FPS AI — Capability Profile</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papaniass Folaranmi · FPS AI</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0A'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='600' font-size='15' fill='%23FFFFFF' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<meta name="description" content="FPS AI capability profile. AI software for businesses, tailored to how you actually run, built and looked after by one AI Transformation Partner.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0A0A0A',
+          surface: '#121212',
+          surface2: '#171717',
+          border: '#232323',
+          border2: '#3A3A3A',
+          ink: '#FFFFFF',
+          body: '#A3A3A3',
+          muted: '#7A7A7A',
+          live: '#22C55E',
+        },
+        fontFamily: {
+          sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
 <style>
-  :root{
-    --ink:#0b0f14;
-    --panel:#131a22;
-    --panel-2:#1a222c;
-    --paper:#f3efe6;
-    --ember:#e2703a;
-    --ember-dim:#c2410c;
-    --signal:#3ecf8e;
-    --text:#eef1f4;
-    --text-soft:#9aa7b2;
-    --line:#232c36;
-    --serif:"Fraunces",Georgia,"Iowan Old Style",serif;
-    --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+  html { scroll-behavior: smooth; }
+  body {
+    background:#0A0A0A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transform: translateZ(0);
   }
-  *{box-sizing:border-box;}
-  html{background:var(--ink);}
-  body{
-    margin:0;
-    background:var(--ink);
-    color:var(--text);
-    font-family:var(--sans);
-    padding:0 20px;
-    -webkit-font-smoothing:antialiased;
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
-  .wrap{max-width:760px;margin:0 auto;}
-  a{color:inherit;}
-  h1,h2,h3{font-family:var(--serif);text-wrap:balance;margin:0;}
-  .kicker{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--ember);
+  .label-col { letter-spacing: 0.08em; }
+  ::selection { background: #FFFFFF; color: #000000; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; border-radius: 2px; }
+  .row-tick { position: relative; }
+  .row-tick::before {
+    content: '';
+    position: absolute;
+    left: -1px; top: 0.35em; bottom: 0.35em;
+    width: 2px;
+    background: #333333;
   }
-  .mono{font-family:var(--mono);}
-
-  /* ---------- Hero ---------- */
-  .hero{padding:40px 0 28px;border-bottom:1px solid var(--line);}
-  .hero .kicker{margin-bottom:14px;}
-  .hero h1{font-size:clamp(32px,8vw,48px);font-weight:700;line-height:1.05;color:#fff;}
-  .hero .role{
-    font-size:16px;color:var(--text-soft);margin-top:10px;font-weight:500;
+  .tick-li { position: relative; padding-left: 1.25rem; }
+  .tick-li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5em;
+    width: 6px; height: 6px;
+    border-radius: 1px;
+    background: #7A7A7A;
   }
-  .hero .role strong{color:var(--text);font-weight:600;}
-  .contact-row{
-    display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+  .tick-li.tick-accent::before { background: #FFFFFF; }
+  .dot-live {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22C55E;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
   }
-  .btn{
-    font-family:var(--sans);font-size:13.5px;font-weight:600;
-    padding:10px 16px;border-radius:8px;text-decoration:none;
-    display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
-  }
-  .btn-primary{background:var(--ember);color:#191008;border-color:var(--ember);}
-  .btn-ghost{color:var(--text);background:var(--panel);}
-  .btn-ghost:hover{background:var(--panel-2);}
-
-  /* ---------- Section shell ---------- */
-  section{padding:34px 0;border-bottom:1px solid var(--line);}
-  section h2{font-size:22px;color:#fff;margin-bottom:4px;}
-  .lede{color:var(--text-soft);font-size:14.5px;line-height:1.6;max-width:60ch;margin:10px 0 20px;}
-
-  /* ---------- Problem / What we do ---------- */
-  .prose p{font-size:15px;line-height:1.75;color:#dbe1e6;max-width:64ch;margin:0 0 14px;}
-  .prose strong{color:#fff;}
-
-  /* ---------- Business map ---------- */
-  .map{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);}
-  .map-row{
-    display:grid;grid-template-columns:190px 1fr;gap:16px;
-    padding:13px 16px;border-bottom:1px solid var(--line);align-items:start;
-  }
-  .map-row:last-child{border-bottom:none;}
-  .map-area{
-    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--text);padding-top:2px;
-  }
-  .map-states{display:grid;gap:5px;}
-  .by-hand,.built{font-size:13.2px;line-height:1.5;display:flex;gap:8px;}
-  .by-hand{color:#a99a89;}
-  .built{color:var(--signal);}
-  .by-hand::before{content:"●";color:var(--ember-dim);font-size:9px;line-height:1.9;}
-  .built::before{content:"●";color:var(--signal);font-size:9px;line-height:1.9;}
-  @media(max-width:600px){
-    .map-row{grid-template-columns:1fr;gap:8px;}
-    .map-area{color:var(--text-soft);}
-  }
-  .map-key{
-    display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 0;
-    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-soft);
-  }
-  .map-key span{display:flex;gap:7px;align-items:center;}
-  .k-hand::before{content:"●";color:var(--ember-dim);}
-  .k-built::before{content:"●";color:var(--signal);}
-
-  /* ---------- Engagement cards ---------- */
-  .cards{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-top:18px;}
-  @media(max-width:600px){.cards{grid-template-columns:1fr;}}
-  .card{
-    background:var(--panel);border:1px solid var(--line);border-radius:10px;
-    padding:18px;
-  }
-  .card .meta{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;}
-  .card .meta .loc{font-family:var(--mono);font-size:10.5px;color:var(--text-soft);text-transform:uppercase;letter-spacing:.05em;}
-  .card .status{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--signal);}
-  .card h3{font-family:var(--serif);font-size:19px;font-weight:600;color:#fff;margin-bottom:8px;}
-  .card p{font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0;}
-
-  /* ---------- Systems built ---------- */
-  .systems{display:grid;gap:14px;margin-top:18px;}
-  .system{
-    border:1px solid var(--line);border-radius:10px;padding:18px;
-    background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  }
-  .system .kicker{color:var(--signal);}
-  .system h3{font-family:var(--sans);font-size:16px;font-weight:600;color:#fff;margin:8px 0 6px;}
-  .system p{font-size:13.8px;color:var(--text-soft);line-height:1.65;margin:0;}
-
-  /* ---------- Triptych ---------- */
-  .triptych{display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin-top:18px;}
-  @media(max-width:640px){.triptych{grid-template-columns:1fr;}}
-  .triptych div p{font-size:13.5px;color:#dbe1e6;line-height:1.65;margin:0;}
-  .triptych div{border-left:2px solid var(--ember);padding-left:14px;}
-
-  /* ---------- Engagement shapes ---------- */
-  .shapes{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin-top:18px;}
-  @media(max-width:640px){.shapes{grid-template-columns:1fr;}}
-  .shape{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--panel);}
-  .shape.pref{border-color:var(--ember);background:var(--panel-2);}
-  .shape .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);}
-  .shape.pref .tag{color:var(--ember);}
-  .shape h3{font-family:var(--sans);font-size:14.5px;font-weight:600;color:#fff;margin:8px 0 6px;}
-  .shape p{font-size:12.8px;color:var(--text-soft);line-height:1.6;margin:0;}
-
-  /* ---------- CTA ---------- */
-  .cta{
-    border-bottom:none;
-    background:radial-gradient(120% 140% at 10% 0%,#2a1810 0%,var(--ink) 55%);
-    padding:44px 0 60px;
-  }
-  .cta h2{font-size:26px;}
-  .cta .lede{max-width:52ch;}
-  .cta .contact-row{margin-top:24px;}
-
-  footer{padding:22px 0 40px;color:var(--text-soft);font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-align:center;}
+  .card-media { transition: transform 0.4s ease; }
+  .card-media-wrap:hover .card-media { transform: scale(1.04); }
 </style>
+</head>
+<body class="bg-bg text-body font-sans antialiased">
 
-<div class="wrap">
+<div class="mx-auto max-w-[900px] lg:border-x lg:border-border">
 
-  <header class="hero">
-    <div class="kicker">FPS AI &middot; AI Partner &middot; Capability Profile</div>
-    <h1>Papaniass Folaranmi</h1>
-    <p class="role">We build <strong>AI software</strong> for the parts of a business still being done by hand &mdash; built around how your business actually works, not the other way round.</p>
-    <div class="contact-row">
-      <a class="btn btn-primary" href="https://wa.me/2348137982733?text=Hi%2C%20I%20saw%20your%20FPS%20AI%20profile%20and%20want%20to%20talk" target="_blank" rel="noopener">WhatsApp me</a>
-      <a class="btn btn-ghost" href="mailto:pfniass@gmail.com">pfniass@gmail.com</a>
-      <a class="btn btn-ghost" href="tel:+2348137982733">+234 813 798 2733</a>
+<!-- Top bar -->
+<header class="sticky top-0 z-40 bg-bg/90 backdrop-blur border-b border-border">
+  <div class="px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#top" class="font-mono text-sm tracking-[0.1em] text-ink hover:text-body transition-colors">FPS&nbsp;AI</a>
+    <nav class="hidden lg:flex items-center gap-7 font-mono text-[11px] tracking-[0.08em] uppercase text-muted">
+      <a href="#what-we-do" class="hover:text-ink transition-colors">What we do</a>
+      <a href="#where-applies" class="hover:text-ink transition-colors">Where it applies</a>
+      <a href="#projects" class="hover:text-ink transition-colors">Projects</a>
+      <a href="#engagements" class="hover:text-ink transition-colors">Engagements</a>
+      <a href="#how-we-work" class="hover:text-ink transition-colors">How we work</a>
+    </nav>
+    <a href="#start-here" class="font-mono text-[11px] tracking-[0.08em] uppercase bg-ink text-black rounded-full px-4 py-2 hover:bg-body transition-colors">Start here</a>
+  </div>
+</header>
+
+<main id="top" class="px-6 lg:px-10">
+
+  <!-- Hero -->
+  <section class="pt-16 pb-14 lg:pt-24 lg:pb-16 border-b border-border">
+    <p class="font-mono text-[12px] tracking-[0.12em] uppercase text-muted mb-6">Founder, FPS AI · AI Transformation Partner</p>
+    <h1 class="font-sans font-semibold text-ink leading-[0.98] tracking-[-0.02em] text-[13vw] sm:text-[52px] lg:text-[64px]">
+      Papaniass<br>Folaranmi
+    </h1>
+    <p class="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-body">Find it. Build it. Stay on it.</p>
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a href="https://wa.me/2348137982733?text=Hi%2C%20I%27d%20like%20to%20book%20a%20free%20look%20at%20my%20business" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-black hover:bg-body transition-colors">
+        Book a call
+      </a>
+      <a href="mailto:pfniass@gmail.com" class="inline-flex items-center gap-2 rounded-full border border-border2 px-6 py-3 text-sm text-ink hover:border-ink transition-colors">
+        pfniass@gmail.com
+      </a>
     </div>
-  </header>
+    <p class="mt-4 text-sm text-muted">or call <a href="tel:+2348137982733" class="text-body hover:text-ink transition-colors underline underline-offset-2 decoration-border2">+234 813 798 2733</a>, same number for WhatsApp</p>
+  </section>
 
-  <section>
-    <div class="kicker">What we do</div>
-    <h2>Most businesses still run on processes done by hand</h2>
-    <div class="prose" style="margin-top:16px;">
-      <p>Someone types the same details into three places. Someone remembers to follow up, or doesn't. Someone spends an afternoon pulling numbers together to answer a question the business should already know the answer to.</p>
-      <p><strong>FPS AI builds AI software that takes those processes over</strong> &mdash; and we build it around your business, not your business around it. What used to take three days to a week ends up taking hours, because the software does it the moment it needs doing.</p>
+  <!-- Worked with -->
+  <section class="py-8 border-b border-border">
+    <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-muted mb-5">Worked with</p>
+    <div class="flex flex-wrap items-center gap-x-10 gap-y-3">
+      <span class="text-ink/80 text-sm font-medium">The Street Scent</span>
+      <span class="text-ink/80 text-sm font-medium">Zeezlah Supermarket</span>
+      <span class="text-ink/80 text-sm font-medium">Jupiter AI Academy</span>
     </div>
   </section>
 
-  <section>
-    <div class="kicker">Where this applies</div>
-    <h2>The whole business, not one corner</h2>
-    <p class="lede">Software doesn't only belong in sales. Every one of these is a place we build.</p>
-    <div class="map">
-      <div class="map-row">
-        <div class="map-area">Finding customers</div>
-        <div class="map-states">
-          <div class="by-hand">Word of mouth, or a website nobody can find</div>
-          <div class="built">A presence that gets found, and a door that actually opens</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Answering enquiries</div>
-        <div class="map-states">
-          <div class="by-hand">Whoever is free, whenever they're free</div>
-          <div class="built">Answers, qualifies and books at any hour</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Quotes, orders, invoices</div>
-        <div class="map-states">
-          <div class="by-hand">Typed out one at a time</div>
-          <div class="built">Generated from what's already on file</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Running the work</div>
-        <div class="map-states">
-          <div class="by-hand">Tracked in WhatsApp, a notebook, someone's head</div>
-          <div class="built">One place, with nothing falling through</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Getting paid</div>
-        <div class="map-states">
-          <div class="by-hand">Chasing people, uncomfortably, by hand</div>
-          <div class="built">Chased automatically, on schedule</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Repeat business</div>
-        <div class="map-states">
-          <div class="by-hand">Hoping customers come back</div>
-          <div class="built">Systematic follow-up, reviews, reactivation</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Content and visuals</div>
-        <div class="map-states">
-          <div class="by-hand">A shoot, a studio, a week</div>
-          <div class="built">Campaign-quality imagery in days, no shoot</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-area">Knowing how you're doing</div>
-        <div class="map-states">
-          <div class="by-hand">Ask three people, get three answers</div>
-          <div class="built">A report that writes itself</div>
-        </div>
-      </div>
-    </div>
-    <p class="map-key"><span class="k-hand">still done by hand</span><span class="k-built">what we build</span></p>
-  </section>
-
-  <section>
-    <div class="kicker">How we build it</div>
-    <h2>Tailored to your business, not a tool you rent</h2>
-    <div class="prose" style="margin-top:16px;">
-      <p>Off-the-shelf tools make you change how you work to suit the tool. We do the opposite: the system gets built around how your business actually runs, in your language, for your workflow.</p>
-      <p>That used to mean a development team and months of work. <strong>AI is what makes building custom affordable now</strong> &mdash; it's the how, not the product. What you get is software, and software you can watch run.</p>
+  <!-- What We Do -->
+  <section id="what-we-do" class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border scroll-mt-16">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">What we do</h2>
+    <div class="max-w-[62ch] space-y-5 text-[15px] leading-[1.75]">
+      <p>We build AI software for businesses. Not one product sold to everybody. We look at how your business actually runs, find the one thing costing you the most, and build software for that exact thing. Then we stay on it.</p>
+      <p>Most businesses still run on work pushed along by hand: details retyped, follow-ups that depend on memory, numbers nobody has pulled together yet. That work doesn't need a person.</p>
     </div>
   </section>
 
-  <section>
-    <div class="kicker">Selected engagements &mdash; as AI partner</div>
-    <h2>Where this has actually run</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="meta"><span class="loc">Dubai &middot; Fragrance</span><span class="status">Ongoing</span></div>
-        <h3>The Street Scent</h3>
-        <p>Full campaign imagery without physical shoots &mdash; a brand audit, a Ramadan campaign, the "Coffee in Paris" fragrance campaigns, and the "Between Sets" editorial series.</p>
+  <!-- Achievement -->
+  <section class="py-14 lg:py-16 border-b border-border">
+    <p class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.1em] uppercase text-muted mb-8">
+      <span class="dot-live"></span> Building with AI since 2024
+    </p>
+    <div class="grid grid-cols-2 gap-8 max-w-[440px]">
+      <div>
+        <p class="font-sans font-semibold text-ink text-[44px] sm:text-[56px] leading-none tracking-[-0.02em]">23+</p>
+        <p class="mt-2 font-mono text-[11px] tracking-[0.06em] uppercase text-muted">Projects built</p>
       </div>
-      <div class="card">
-        <div class="meta"><span class="loc">Nigeria &middot; Retail</span><span class="status">Delivered</span></div>
-        <h3>Zeezlah Supermarket</h3>
-        <p>Invisible to listed on Google Maps &mdash; the store now gets real customer enquiries through it, paired with a link-in-bio site built to keep the reviews coming.</p>
-      </div>
-      <div class="card">
-        <div class="meta"><span class="loc">Nigeria &middot; Education</span><span class="status">Active</span></div>
-        <h3>Jupiter AI Academy</h3>
-        <p>Teaching people to use and build with AI, online through a private community and in person through a workshop &mdash; the same plain-language approach behind this page.</p>
-      </div>
-      <div class="card">
-        <div class="meta"><span class="loc">Internal &middot; The agency</span><span class="status">Running</span></div>
-        <h3>FPS AI itself</h3>
-        <p>The engine our own pipeline runs on: finds businesses across a city, checks which are worth reaching, audits their site, writes the first message &mdash; work of a small team, run by one person.</p>
+      <div>
+        <p class="font-sans font-semibold text-ink text-[44px] sm:text-[56px] leading-none tracking-[-0.02em]">140+</p>
+        <p class="mt-2 font-mono text-[11px] tracking-[0.06em] uppercase text-muted">Community members</p>
       </div>
     </div>
   </section>
 
-  <section>
-    <div class="kicker">Built to solve our own problems</div>
-    <h2>We don't just configure other people's tools</h2>
-    <div class="systems">
-      <div class="system">
-        <div class="kicker">Software &middot; running</div>
-        <h3>FORGE</h3>
-        <p>A visual pipeline builder for AI generation work &mdash; chain image generation, upscaling and text steps into one repeatable flow instead of touching each tool by hand. Built to solve our own delivery bottleneck on creative work; already producing finished output.</p>
+  <!-- Stack -->
+  <section class="py-14 lg:py-16 border-b border-border">
+    <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-muted mb-8">Stack</p>
+    <div class="flex flex-wrap gap-x-9 gap-y-7">
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">Claude</span>
       </div>
-      <div class="system">
-        <div class="kicker">Assistant &middot; running</div>
-        <h3>Zain</h3>
-        <p>The assistant that runs FPS AI's own operations &mdash; research, outreach, client documents, the pipeline itself. If it can hold together the backend of an agency, it can hold together yours.</p>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor"><path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">OpenAI</span>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="kicker">Why this isn't magic</div>
-    <h2>No robot, no black box</h2>
-    <div class="triptych">
-      <div><p>There's no robot making decisions on the fly. It's instructions written once, followed exactly, every single time.</p></div>
-      <div><p>You keep your people. They stop spending their day on the parts of the job that never needed a person.</p></div>
-      <div><p>Every system we build, you can watch run. Nothing is a black box you have to take on trust.</p></div>
-    </div>
-    <p class="lede" style="margin-top:20px;margin-bottom:0;">We don't have measured client figures to quote yet &mdash; FPS AI is early, and we won't put a number on this page we can't stand behind.</p>
-  </section>
-
-  <section style="border-bottom:none;">
-    <div class="kicker">How we work</div>
-    <h2>Three ways in</h2>
-    <div class="shapes">
-      <div class="shape">
-        <div class="tag">One-off</div>
-        <h3>Single build</h3>
-        <p>A specific system, built and handed over.</p>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor" fill-rule="evenodd"><path clip-rule="evenodd" d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.14-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">Codex</span>
       </div>
-      <div class="shape pref">
-        <div class="tag">Preferred</div>
-        <h3>Ongoing AI partner</h3>
-        <p>We stay on as your systems change &mdash; the longer we run it, the more we find to improve.</p>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor"><path d="M21.751 22.607c1.34 1.005 3.35.335 1.508-1.508C17.73 15.74 18.904 1 12.037 1 5.17 1 6.342 15.74.815 21.1c-2.01 2.009.167 2.511 1.507 1.506 5.192-3.517 4.857-9.714 9.715-9.714 4.857 0 4.522 6.197 9.714 9.715z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">Antigravity</span>
       </div>
-      <div class="shape">
-        <div class="tag">Hybrid</div>
-        <h3>Build, then care</h3>
-        <p>We build it, then stay on to keep it sharp.</p>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor" fill-rule="evenodd"><path clip-rule="evenodd" d="M24 8.4c0 1.325-1.102 2.4-2.462 2.4-1.146 0-2.11-.765-2.384-1.8h-3.436c-.602 0-1.115.424-1.214 1.003l-.101.592a2.38 2.38 0 01-.8 1.405c.412.354.704.844.8 1.405l.1.592A1.222 1.222 0 0015.719 15h.975c.273-1.035 1.237-1.8 2.384-1.8 1.36 0 2.461 1.075 2.461 2.4S20.436 18 19.078 18c-1.147 0-2.11-.765-2.384-1.8h-.975c-1.204 0-2.23-.848-2.428-2.005l-.101-.592a1.222 1.222 0 00-1.214-1.003H10.97c-.308.984-1.246 1.7-2.356 1.7-1.11 0-2.048-.716-2.355-1.7H4.817c-.308.984-1.246 1.7-2.355 1.7C1.102 14.3 0 13.225 0 11.9s1.102-2.4 2.462-2.4c1.183 0 2.172.815 2.408 1.9h1.337c.236-1.085 1.225-1.9 2.408-1.9 1.184 0 2.172.815 2.408 1.9h.952c.601 0 1.115-.424 1.213-1.003l.102-.592c.198-1.157 1.225-2.005 2.428-2.005h3.436c.274-1.035 1.238-1.8 2.384-1.8C22.898 6 24 7.075 24 8.4zm-1.23 0c0 .663-.552 1.2-1.232 1.2-.68 0-1.23-.537-1.23-1.2 0-.663.55-1.2 1.23-1.2.68 0 1.231.537 1.231 1.2zM2.461 13.1c.68 0 1.23-.537 1.23-1.2 0-.663-.55-1.2-1.23-1.2-.68 0-1.231.537-1.231 1.2 0 .663.55 1.2 1.23 1.2zm6.153 0c.68 0 1.231-.537 1.231-1.2 0-.663-.55-1.2-1.23-1.2-.68 0-1.231.537-1.231 1.2 0 .663.55 1.2 1.23 1.2zm10.462 3.7c.68 0 1.23-.537 1.23-1.2 0-.663-.55-1.2-1.23-1.2-.68 0-1.23.537-1.23 1.2 0 .663.55 1.2 1.23 1.2z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">n8n</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 text-ink" fill="currentColor"><path d="M5 0h5v24H5V0zM14 0h5v24h-5V0z"/></svg>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">ElevenLabs</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 w-14">
+        <div class="w-6 h-6 rounded border border-border2 flex items-center justify-center text-ink font-mono text-[11px] font-semibold">K</div>
+        <span class="font-mono text-[10px] tracking-[0.04em] uppercase text-muted text-center">Kie AI</span>
       </div>
     </div>
   </section>
 
-  <section class="cta">
-    <div class="kicker">Start here</div>
-    <h2>A free look at your business, no commitment</h2>
-    <p class="lede">Which of your processes are still being done by hand, and what each one is costing you every month. If there's a fit, we go from there.</p>
-    <div class="contact-row">
-      <a class="btn btn-primary" href="https://wa.me/2348137982733?text=Hi%2C%20I%20saw%20your%20FPS%20AI%20profile%20and%20want%20to%20talk" target="_blank" rel="noopener">Message on WhatsApp</a>
-      <a class="btn btn-ghost" href="mailto:pfniass@gmail.com">Email instead</a>
+  <!-- Where This Applies -->
+  <section id="where-applies" class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border scroll-mt-16">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Where this applies:<br class="hidden lg:block">the whole business,<br class="hidden lg:block">not one corner</h2>
+    <div class="max-w-[70ch]">
+      <p class="text-[15px] leading-[1.75] mb-3">Software doesn't only belong in sales. <span class="text-ink">These are typical examples, not a menu.</span> Which one actually matters for you is exactly what the free look is for.</p>
+
+      <!-- Desktop table -->
+      <div class="hidden md:block mt-8 border border-border rounded-md overflow-hidden">
+        <div class="grid grid-cols-[1fr_1.3fr_1.3fr] bg-surface2 font-mono text-[11px] tracking-[0.06em] uppercase text-muted">
+          <div class="px-5 py-3 border-b border-border">Part of the business</div>
+          <div class="px-5 py-3 border-b border-border border-l border-border">Where it's boring, repeated or manual</div>
+          <div class="px-5 py-3 border-b border-border border-l border-border">What we build</div>
+        </div>
+        <div class="divide-y divide-border">
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Enquiries and follow-up</div>
+            <div class="px-5 py-4 border-l border-border text-body">Whoever's free replies, follow-up depends on memory</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Answered and qualified any hour, nothing forgotten</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Quotes, orders, invoices</div>
+            <div class="px-5 py-4 border-l border-border text-body">Typed out one at a time, from scratch</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Generated from what's already on file</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Stock and supplies</div>
+            <div class="px-5 py-4 border-l border-border text-body">Counted by eye, reordered by chance</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Tracked live, flagged before it runs out</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Staff and scheduling</div>
+            <div class="px-5 py-4 border-l border-border text-body">Rotas on paper, every change a phone call</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Built, shared and updated in one place</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Records and paperwork</div>
+            <div class="px-5 py-4 border-l border-border text-body">The same details re-entered in three places</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Entered once, then everywhere it's needed</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Getting paid</div>
+            <div class="px-5 py-4 border-l border-border text-body">Chasing people, uncomfortably, by hand</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">Chased automatically, on schedule</div>
+          </div>
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] text-sm">
+            <div class="px-5 py-4 text-ink font-medium">Knowing your numbers</div>
+            <div class="px-5 py-4 border-l border-border text-body">Ask three people, get three answers</div>
+            <div class="px-5 py-4 border-l border-border text-body row-tick pl-[22px]">A report that writes itself</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile stacked cards -->
+      <div class="md:hidden mt-6 space-y-3">
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Enquiries and follow-up</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Whoever's free replies, follow-up depends on memory</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Answered and qualified any hour, nothing forgotten</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Quotes, orders, invoices</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Typed out one at a time, from scratch</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Generated from what's already on file</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Stock and supplies</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Counted by eye, reordered by chance</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Tracked live, flagged before it runs out</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Staff and scheduling</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Rotas on paper, every change a phone call</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Built, shared and updated in one place</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Records and paperwork</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">The same details re-entered in three places</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Entered once, then everywhere it's needed</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Getting paid</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Chasing people, uncomfortably, by hand</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">Chased automatically, on schedule</p>
+        </div>
+        <div class="border border-border rounded-md p-4">
+          <p class="text-ink text-sm font-medium mb-2">Knowing your numbers</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">Where it's boring</p>
+          <p class="text-sm text-body mb-3">Ask three people, get three answers</p>
+          <p class="text-xs text-muted font-mono uppercase tracking-wide mb-1">What we build</p>
+          <p class="text-sm text-body row-tick pl-[14px]">A report that writes itself</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer>FPS AI &middot; AI Partner &middot; Papaniass Folaranmi &middot; +234 813 798 2733</footer>
+  <!-- How We Build It -->
+  <section class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">How we build it</h2>
+    <div class="max-w-[62ch] text-[15px] leading-[1.75]">
+      <p>Off-the-shelf tools make you change how you work to suit the tool. We build around how your business already runs, in your language, for your workflow. AI is what makes custom affordable now: it is the <em class="text-ink not-italic font-medium">how</em>, not the product, so what you get is software you can watch run.</p>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Experience</h2>
+    <div class="max-w-[62ch] relative pl-8">
+      <div class="absolute left-[5px] top-2 bottom-2 w-px bg-border"></div>
+
+      <div class="relative pb-10">
+        <div class="absolute -left-8 top-1.5 w-[11px] h-[11px] rounded-full bg-ink"></div>
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">2024</p>
+        <h3 class="text-ink font-medium mb-2">Started in AI</h3>
+        <p class="text-sm text-body leading-[1.7]">I got into AI in 2024, on the back of the ChatGPT wave. I've been learning and building ever since, one tool and one system at a time.</p>
+      </div>
+
+      <div class="relative pb-10">
+        <div class="absolute -left-8 top-1.5 w-[11px] h-[11px] rounded-full border-2 border-ink bg-bg"></div>
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">The community</p>
+        <h3 class="text-ink font-medium mb-2">Sharing what I learn</h3>
+        <p class="text-sm text-body leading-[1.7]">I started a WhatsApp community, now around 140 people, where I share the best AI tips and tutorials I come across. I post videos on YouTube too.</p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -left-8 top-1.5 w-[11px] h-[11px] rounded-full border-2 border-ink bg-bg"></div>
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Now</p>
+        <h3 class="text-ink font-medium mb-2">FPS AI</h3>
+        <p class="text-sm text-body leading-[1.7]">Now I build AI software for businesses, tailored to how each one actually runs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border scroll-mt-16">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Projects</h2>
+    <div class="max-w-[70ch]">
+      <p class="text-[15px] leading-[1.75] mb-6">We don't only configure other people's tools. We build our own when nothing fits.</p>
+      <div class="grid sm:grid-cols-2 gap-5">
+
+        <div class="border border-border rounded-md overflow-hidden hover:border-border2 transition-colors">
+          <div class="card-media-wrap relative aspect-video bg-surface overflow-hidden">
+            <img src="https://placehold.co/960x600/0a0a0a/262626?text=Screenshot+pending" alt="FORGE screenshot pending" class="card-media w-full h-full object-cover" loading="lazy">
+            <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] uppercase text-ink"><span class="dot-live"></span>Live</span>
+          </div>
+          <div class="p-5">
+            <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Creative AI software</p>
+            <h3 class="text-ink font-medium mb-2">FORGE</h3>
+            <p class="text-sm text-body leading-[1.7]">A visual pipeline builder for AI generation work, chaining image generation, upscaling and text into one repeatable flow.</p>
+          </div>
+        </div>
+
+        <div class="border border-border rounded-md overflow-hidden hover:border-border2 transition-colors">
+          <div class="card-media-wrap relative aspect-video bg-surface overflow-hidden">
+            <img src="https://placehold.co/960x600/0a0a0a/262626?text=Screenshot+pending" alt="Content creation OS screenshot pending" class="card-media w-full h-full object-cover" loading="lazy">
+            <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] uppercase text-muted">In progress</span>
+          </div>
+          <div class="p-5">
+            <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Content operations</p>
+            <h3 class="text-ink font-medium mb-2">Content creation OS</h3>
+            <p class="text-sm text-body leading-[1.7]">A system for running content production end to end. Still being built.</p>
+          </div>
+        </div>
+
+        <div class="border border-border rounded-md overflow-hidden hover:border-border2 transition-colors">
+          <div class="card-media-wrap relative aspect-video bg-surface overflow-hidden">
+            <img src="https://placehold.co/960x600/0a0a0a/262626?text=Screenshot+pending" alt="n8n workflows screenshot pending" class="card-media w-full h-full object-cover" loading="lazy">
+            <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] uppercase text-ink"><span class="dot-live"></span>Live</span>
+          </div>
+          <div class="p-5">
+            <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Internal workflows</p>
+            <h3 class="text-ink font-medium mb-2">n8n workflows</h3>
+            <p class="text-sm text-body leading-[1.7]">Workflows built in n8n that run FPS AI's own day-to-day work.</p>
+          </div>
+        </div>
+
+        <div class="border border-border rounded-md overflow-hidden hover:border-border2 transition-colors">
+          <div class="card-media-wrap relative aspect-video bg-surface overflow-hidden">
+            <img src="https://placehold.co/960x600/0a0a0a/262626?text=Screenshot+pending" alt="Telegram bot screenshot pending" class="card-media w-full h-full object-cover" loading="lazy">
+            <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] uppercase text-ink"><span class="dot-live"></span>Live</span>
+          </div>
+          <div class="p-5">
+            <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Internal tool</p>
+            <h3 class="text-ink font-medium mb-2">Telegram bot</h3>
+            <p class="text-sm text-body leading-[1.7]">A Telegram bot built for FPS AI's own operations.</p>
+          </div>
+        </div>
+
+        <div class="border border-border rounded-md overflow-hidden hover:border-border2 transition-colors sm:col-span-2">
+          <div class="grid sm:grid-cols-[1.2fr_1fr]">
+            <div class="p-5 order-2 sm:order-1">
+              <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-2">Internal assistant</p>
+              <h3 class="text-ink font-medium mb-2">Zain</h3>
+              <p class="text-sm text-body leading-[1.7]">The assistant running FPS AI's own operations: research, client documents, the systems themselves. If it holds together an agency's backend, it can hold together yours.</p>
+            </div>
+            <div class="card-media-wrap relative aspect-video sm:aspect-auto bg-surface overflow-hidden order-1 sm:order-2">
+              <img src="https://placehold.co/960x600/0a0a0a/262626?text=Screenshot+pending" alt="Zain screenshot pending" class="card-media w-full h-full object-cover" loading="lazy">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 font-mono text-[10px] tracking-[0.06em] uppercase text-ink"><span class="dot-live"></span>Live</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Engagements -->
+  <section id="engagements" class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border scroll-mt-16">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Selected engagements:<br class="hidden lg:block">as AI partner</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="border border-border rounded-md p-5 hover:border-border2 transition-colors">
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-3">Dubai · fragrance</p>
+        <h3 class="text-ink font-medium mb-2">The Street Scent</h3>
+        <p class="text-sm text-body leading-[1.7]">Ongoing AI partner. Their campaign shoots produced with AI, no physical shoot.</p>
+      </div>
+      <div class="border border-border rounded-md p-5 hover:border-border2 transition-colors">
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-3">Nigeria · retail</p>
+        <h3 class="text-ink font-medium mb-2">Zeezlah Supermarket</h3>
+        <p class="text-sm text-body leading-[1.7]">AI partner. Invisible to found on Google Maps by real customers, backed by a live site.</p>
+      </div>
+      <div class="border border-border rounded-md p-5 hover:border-border2 transition-colors">
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-3">Nigeria · education</p>
+        <h3 class="text-ink font-medium mb-2">Jupiter AI Academy</h3>
+        <p class="text-sm text-body leading-[1.7]">Teaching people to use and build with AI, online and in person.</p>
+      </div>
+      <div class="border border-border rounded-md p-5 hover:border-border2 transition-colors">
+        <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-3">Internal · the agency itself</p>
+        <h3 class="text-ink font-medium mb-2">FPS AI</h3>
+        <p class="text-sm text-body leading-[1.7]">Our own systems: finding businesses, scoring them, auditing each site. A small team, run by one person.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why This Isn't Magic -->
+  <section class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Why this isn't magic</h2>
+    <ul class="max-w-[64ch] space-y-4 text-[15px] leading-[1.75]">
+      <li class="tick-li">Nothing here is a robot making decisions on its own. It is instructions written once, followed exactly, every time.</li>
+      <li class="tick-li">You keep your people. They stop spending their day on the parts of the job that never needed a person.</li>
+      <li class="tick-li">Every system we build, you can watch run. Nothing is a black box you have to take on trust.</li>
+      <li class="tick-li">We don't have measured client figures to quote yet. FPS AI is early, and we won't put a number on this page we can't stand behind.</li>
+      <li class="tick-li tick-accent"><span class="text-ink">That is an argument for us, not against us.</span> At an established agency you are one more name on a list they already have. We are early, hungry, and have something to prove: your business gets attention a bigger firm has no reason to give it.</li>
+    </ul>
+  </section>
+
+  <!-- How We Work -->
+  <section id="how-we-work" class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border scroll-mt-16">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">How we work</h2>
+    <div class="max-w-[70ch]">
+      <p class="text-[15px] leading-[1.75] mb-6"><span class="text-ink font-medium">We don't do one-off builds.</span> Left alone, a system goes stale within a year.</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="border border-border rounded-md p-5">
+          <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted mb-3">Shape one</p>
+          <h3 class="text-ink font-medium mb-2">Build, then ongoing care</h3>
+          <p class="text-sm text-body leading-[1.7]">We build it, then stay on to keep it sharp as your business changes.</p>
+        </div>
+        <div class="border border-ink/40 rounded-md p-5 bg-surface">
+          <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-ink mb-3">Shape two · preferred</p>
+          <h3 class="text-ink font-medium mb-2">AI Transformation Partner (AITP)</h3>
+          <p class="text-sm text-body leading-[1.7]">The model we prefer. The longer we run your systems, the cheaper each new build gets, because we already know how you work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-12 py-14 lg:py-16 border-b border-border">
+    <h2 class="font-mono text-[12px] tracking-[0.1em] uppercase text-muted label-col lg:pt-1">Education</h2>
+    <div class="max-w-[62ch] space-y-3 text-[15px] leading-[1.75]">
+      <p><span class="text-ink font-medium">Ladoke Akintola University of Technology (LAUTECH).</span> B.Tech, Computer Science, 2020 to 2025.</p>
+      <p><span class="text-ink font-medium">Federal Government College, Ogbomoso.</span> 2020.</p>
+    </div>
+  </section>
+
+  <!-- Start Here -->
+  <section id="start-here" class="py-16 lg:py-24 scroll-mt-16">
+    <div class="max-w-[70ch]">
+      <p class="font-mono text-[12px] tracking-[0.12em] uppercase text-muted mb-4">Start here</p>
+      <p class="text-[15px] leading-[1.75] mb-3">A free look at your business, no commitment: we find the one process costing you the most right now. If there's a fit, we build for that. If there isn't, you still keep the map.</p>
+      <p class="text-[15px] leading-[1.75] mb-8">Do that across enough of the business and the result isn't a tool you bought. It's a business that runs on its own systems instead of on memory, habit and whoever happens to be free. That is what becoming an AI business actually means.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://wa.me/2348137982733?text=Hi%2C%20I%27d%20like%20to%20book%20a%20free%20look%20at%20my%20business" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-black hover:bg-body transition-colors">
+          Book the free look
+        </a>
+        <a href="mailto:pfniass@gmail.com?subject=Free%20look%20at%20my%20business" class="inline-flex items-center gap-2 rounded-full border border-border2 px-6 py-3 text-sm text-ink hover:border-ink transition-colors">
+          pfniass@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-border">
+  <div class="px-6 lg:px-10 pt-10 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <a href="mailto:pfniass@gmail.com" class="text-ink text-lg hover:text-body transition-colors">pfniass@gmail.com</a>
+    <p class="font-mono text-[11px] tracking-[0.06em] uppercase text-muted">Papaniass Folaranmi · FPS AI</p>
+  </div>
+  <div class="relative px-6 lg:px-10 overflow-hidden select-none" aria-hidden="true">
+    <p class="font-sans font-semibold text-[18vw] leading-[0.75] tracking-[-0.03em] text-ink/[0.06] -mb-[2vw] whitespace-nowrap">FPS&nbsp;AI</p>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-bg"></div>
+  </div>
+</footer>
 
 </div>
+
+</body>
+</html>
