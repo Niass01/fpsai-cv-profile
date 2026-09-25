@@ -1,0 +1,42 @@
+[
+  {
+    "name": "FORGE",
+    "category": "Creative AI software",
+    "status": "Live",
+    "description": "A visual pipeline builder for AI generation work, chaining image generation, upscaling and text into one repeatable flow.",
+    "image": "",
+    "featured": false
+  },
+  {
+    "name": "Content creation OS",
+    "category": "Content operations",
+    "status": "In progress",
+    "description": "A system for running content production end to end. Still being built.",
+    "image": "",
+    "featured": false
+  },
+  {
+    "name": "n8n workflows",
+    "category": "Internal workflows",
+    "status": "Live",
+    "description": "Workflows built in n8n that run FPS AI's own day-to-day work.",
+    "image": "",
+    "featured": false
+  },
+  {
+    "name": "Telegram bot",
+    "category": "Internal tool",
+    "status": "Live",
+    "description": "A Telegram bot built for FPS AI's own operations.",
+    "image": "",
+    "featured": false
+  },
+  {
+    "name": "Zain",
+    "category": "Internal assistant",
+    "status": "Live",
+    "description": "The assistant running FPS AI's own operations: research, client documents, the systems themselves. If it holds together an agency's backend, it can hold together yours.",
+    "image": "",
+    "featured": true
+  }
+]

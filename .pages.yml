@@ -1,0 +1,37 @@
+media:
+  input: projects
+  output: /projects
+  categories: [image]
+
+content:
+  - name: projects
+    label: Projects
+    type: file
+    path: projects.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Project name
+        type: string
+        required: true
+      - name: category
+        label: Category (a few words)
+        type: string
+      - name: status
+        label: Status
+        type: select
+        options:
+          values: [Live, In progress]
+        default: Live
+      - name: description
+        label: What it does
+        type: text
+        required: true
+      - name: image
+        label: Screenshot
+        type: image
+      - name: featured
+        label: Show as a wide card
+        type: boolean
+        default: false
